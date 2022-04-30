@@ -89,9 +89,9 @@ rest.put(Routes.applicationGuildCommands(config.clientId, config.guildId), { bod
 
 RUN sudo -S echo ' \
 { \
-  "clientId": "CLIENT_ID", \
-  "guildId": "GUILD_ID", \
-  "token": "DISCORD_TOKEN" \
+  "clientId": CLIENT_ID, \
+  "guildId": GUILD_ID, \
+  "token": DISCORD_TOKEN \
 } \
 ' >/home/node/Docker-Discord-Bot/config.json
 
