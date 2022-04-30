@@ -25,7 +25,8 @@ RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-type
 RUN sudo -S echo ' \
 const fs = require(`fs`); \
 const { Client, Collection, Intents } = require(`discord.js`); \
-const config = require(`./config.js`); \
+const jsConfig = require(`./config.js`).config; \
+const config = JSON.parse(JSON.stringify(jsConfig)); \
 \ 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); \
 \
