@@ -171,5 +171,4 @@ COPY --chown=node:node . .
 EXPOSE 8080
 
 # Run and deploy commands to the bot
-RUN sudo -S node index.js
-RUN sudo -S node deploy-commands.js
+CMD [ "node", "index.js", "deploy-commands.js" ]
