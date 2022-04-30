@@ -25,7 +25,7 @@ RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-type
 RUN sudo -S echo ' \
 const fs = require(`fs`); \
 const { Client, Collection, Intents } = require(`discord.js`); \
-const { token } = require(`./config.js`); \
+const config = require(`./config.js`); \
 \ 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); \
 \
@@ -63,14 +63,14 @@ client.on(`interactionCreate`, async interaction => { \
   } \
 }); \
 \
-client.login(token); \
+client.login(config.token); \
 ' >/home/node/Docker-Discord-Bot/index.js
 
 RUN sudo -S echo ' \
 const fs = require(`fs`); \
 const { REST } = require(`@discordjs/rest`); \
 const { Routes } = require(`discord-api-types/v9`); \
-const { clientId, guildId, token } = require(`./config.js`); \
+const config = require(`./config.js`); \
 \
 const commands = []; \
 const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`)); \
@@ -80,9 +80,9 @@ for (const file of commandFiles) { \
   commands.push(command.data.toJSON()); \
 } \
 \
-const rest = new REST({ version: `9` }).setToken(token); \
+const rest = new REST({ version: `9` }).setToken(config.token); \
 \
-rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands }) \
+rest.put(Routes.applicationGuildCommands(config.clientId, config.guildId), { body: commands }) \
 	.then(() => console.log(`Successfully registered application commands.`)) \
 	.catch(console.error); \
 ' >/home/node/Docker-Discord-Bot/deploy-commands.js
