@@ -131,7 +131,7 @@ module.exports = { \
         { name: 'Your ID:', value: `${interaction.user.id}`, inline: true }, \
       ) \
       .setThumbnail(interaction.user.displayAvatarURL()) \
-      .setFooter('Bot Creator: BatemaDevelopment#0019 | BatemaDevelopment | Lukas Batema') \
+      .setFooter(`Bot Creator: BatemaDevelopment#0019 | BatemaDevelopment | Lukas Batema`) \
       .setTimestamp(); \
 \
     interaction.reply({ embeds: [serverInfo] }); \
@@ -156,7 +156,7 @@ module.exports = { \
         { name: 'Total members:', value: `${interaction.guild.memberCount}`, inline: true }, \
       ) \
       .setThumbnail(interaction.guild.iconURL()) \
-      .setFooter('Bot Creator: BatemaDevelopment#0019 | BatemaDevelopment | Lukas Batema') \
+      .setFooter(`Bot Creator: BatemaDevelopment#0019 | BatemaDevelopment | Lukas Batema`) \
       .setTimestamp(); \
 \
     interaction.reply({ embeds: [serverInfo] }); \
