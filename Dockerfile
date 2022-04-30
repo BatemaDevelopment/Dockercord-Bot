@@ -88,10 +88,10 @@ rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
 ' >/home/node/Docker-Discord-Bot/deploy-commands.js
 
 RUN sudo -S echo ' \
-module.exports = { \
-  const clientId: process.env.CLIENT_ID, \
-  const guildId: process.env.GUILD_ID, \
-  const token: process.env.DISCORD_TOKEN \
+const config = { \
+  clientId: process.env.CLIENT_ID, \
+  guildId: process.env.GUILD_ID, \
+  token: process.env.DISCORD_TOKEN \
 }; \
 ' >/home/node/Docker-Discord-Bot/config.js
 
