@@ -25,7 +25,7 @@ RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-type
 RUN sudo -S echo ' \
 const fs = require(`fs`); \
 const { Client, Collection, Intents } = require(`discord.js`); \
-const { token } = require(`./config.json`); \
+const { token } = require(`./config.js`); \
 \ 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); \
 \
@@ -70,7 +70,7 @@ RUN sudo -S echo ' \
 const fs = require(`fs`); \
 const { REST } = require(`@discordjs/rest`); \
 const { Routes } = require(`discord-api-types/v9`); \
-const { clientId, guildId, token } = require(`./config.json`); \
+const { clientId, guildId, token } = require(`./config.js`); \
 \
 const commands = []; \
 const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`)); \
@@ -89,11 +89,11 @@ rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
 
 RUN sudo -S echo ' \
 { \
-  "clientId": "<INSERT_CLIENT_ID>", \
-  "guildId": "<INSERT_GUILD_ID>", \
-  "token": "<INSERT_BOT_TOKEN>" \
+  clientId: process.env.CLIENT_ID, \
+  guildId: process.env.GUILD_ID, \
+  token: process.env.DISCORD_TOKEN \
 } \
-' >/home/node/Docker-Discord-Bot/config.json
+' >/home/node/Docker-Discord-Bot/config.js
 
 RUN sudo -S echo ' \
 module.exports = { \
@@ -123,7 +123,7 @@ module.exports = { \
     .setName(`user`) \
     .setDescription(`Display info about yourself!`), \
   async execute(interaction) { \
-    const serverInfo = new MessageEmbed() \
+    const userInfo = new MessageEmbed() \
       .setColor(`BLACK`) \
       .setTitle(`**User Info**`) \
       .addFields( \
@@ -134,7 +134,7 @@ module.exports = { \
       .setFooter(`Bot Creator: BatemaDevelopment#0019 | BatemaDevelopment | Lukas Batema`) \
       .setTimestamp(); \
 \
-    interaction.reply({ embeds: [serverInfo] }); \
+    interaction.reply({ embeds: [userInfo] }); \
   }, \
 }; \
 ' >/home/node/Docker-Discord-Bot/commands/user-info.js
