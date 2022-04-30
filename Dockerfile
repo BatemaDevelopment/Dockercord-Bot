@@ -44,7 +44,7 @@ client.commands = new Collection(); \
 const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`)); \
 \
 for (const file of commandFiles) { \
-  const command = require(`./commmands/${file}`); \
+  const command = require(`./commands/${file}`); \
   client.commands.set(command.data.name, command); \
 } \
 \
@@ -170,8 +170,6 @@ COPY --chown=node:node . .
 # Expose the port of `8080` for some reason...
 EXPOSE 8080
 
-# Deploy commands before starting the bot
-RUN node deploy-commands.js
-
 # Run `node index` to start up the Discord Bot
-CMD [ "node", "index" ]
+# then deploy commands
+CMD [ "node", "index", "deploy-commands.js" ]
