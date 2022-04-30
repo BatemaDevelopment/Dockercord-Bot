@@ -23,13 +23,13 @@ RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-type
 
 # Add JS and other files below to make the bot run
 RUN sudo -S echo ' \
-const fs = require('fs'); \
-const { Client, Collection, Intents } = require('discord.js'); \
-const { token } = require('./config.json'); \
+const fs = require(`fs`); \
+const { Client, Collection, Intents } = require(`discord.js`); \
+const { token } = require(`./config.json`); \
 \ 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); \
 \
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')); \
+const eventFiles = fs.readdirSync(`./events`).filter(file => file.endsWith(`.js`)); \
 \
 for (const file of eventFiles) { \
   const event = require(`./events/${file}`); \
@@ -41,14 +41,14 @@ for (const file of eventFiles) { \
 } \
 \
 client.commands = new Collection(); \
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); \
+const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`)); \
 \
 for (const file of commandFiles) { \
   const command = require(`./commmands/${file}`); \
   client.commands.set(command.data.name, command); \
 } \
 \
-client.on('interactionCreate', async interaction => { \
+client.on(`interactionCreate`, async interaction => { \
   if (!interaction.isCommand()) return; \
 \
   const command = client.commands.get(interaction.commandName); \
@@ -59,7 +59,7 @@ client.on('interactionCreate', async interaction => { \
     await command.execute(interaction); \
   } catch (error) { \
     console.error(error); \
-    return interaction.reply({ content: 'There was an error while executing this command', ephemeral: true }); \
+    return interaction.reply({ content: `There was an error while executing this command`, ephemeral: true }); \
   } \
 }); \
 \
@@ -67,23 +67,23 @@ client.login(token); \
 ' >/home/node/Docker-Discord-Bot/index.js
 
 RUN sudo -S echo ' \
-const fs = require('fs'); \
-const { REST } = require('@discordjs/rest'); \
-const { Routes } = require('discord-api-types/v9'); \
-const { clientId, guildId, token } = require('./config.json'); \
+const fs = require(`fs`); \
+const { REST } = require(`@discordjs/rest`); \
+const { Routes } = require(`discord-api-types/v9`); \
+const { clientId, guildId, token } = require(`./config.json`); \
 \
 const commands = []; \
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); \
+const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`)); \
 \
 for (const file of commandFiles) { \
   const command = require(`./commands/${file}`); \
   commands.push(command.data.toJSON()); \
 } \
 \
-const rest = new REST({ version: '9' }).setToken(token); \
+const rest = new REST({ version: `9` }).setToken(token); \
 \
 rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands }) \
-	.then(() => console.log('Successfully registered application commands.')) \
+	.then(() => console.log(`Successfully registered application commands.`)) \
 	.catch(console.error); \
 ' >/home/node/Docker-Discord-Bot/deploy-commands.js
 
@@ -97,7 +97,7 @@ RUN sudo -S echo ' \
 
 RUN sudo -S echo ' \
 module.exports = { \
-  name: 'interactionCreate', \
+  name: `interactionCreate`, \
   execute(interaction) { \
     console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction`); \
   }, \
@@ -106,7 +106,7 @@ module.exports = { \
 
 RUN sudo -S echo ' \
 module.exports = { \
-  name: 'ready', \
+  name: `ready`, \
   once: true, \
   execute(interaction) { \
     console.log(`Ready! Logged in as ${client.user.tag}`); \
@@ -115,20 +115,20 @@ module.exports = { \
 ' >/home/node/Docker-Discord-Bot/events/ready.js
 
 RUN sudo -S echo ' \
-const { SlashCommandBuilder } = require('@discordjs/builders'); \
-const { MessageEmbed } = require('discord.js'); \
+const { SlashCommandBuilder } = require(`@discordjs/builders`); \
+const { MessageEmbed } = require(`discord.js`); \
 \
 module.exports = { \
   data: new SlashCommandBuilder() \
-    .setName('user') \
-    .setDescription('Display info about yourself!'), \
+    .setName(`user`) \
+    .setDescription(`Display info about yourself!`), \
   async execute(interaction) { \
     const serverInfo = new MessageEmbed() \
-      .setColor('BLACK') \
-      .setTitle('**User Info**') \
+      .setColor(`BLACK`) \
+      .setTitle(`**User Info**`) \
       .addFields( \
-        { name: 'Your username:', value: `${interaction.user.tag}`, inline: true }, \
-        { name: 'Your ID:', value: `${interaction.user.id}`, inline: true }, \
+        { name: `Your username:`, value: `${interaction.user.tag}`, inline: true }, \
+        { name: `Your ID:`, value: `${interaction.user.id}`, inline: true }, \
       ) \
       .setThumbnail(interaction.user.displayAvatarURL()) \
       .setFooter(`Bot Creator: BatemaDevelopment#0019 | BatemaDevelopment | Lukas Batema`) \
@@ -140,20 +140,20 @@ module.exports = { \
 ' >/home/node/Docker-Discord-Bot/commands/user-info.js
 
 RUN sudo -S echo ' \
-const { SlashCommandBuilder } = require('@discordjs/builders'); \
-const { MessageEmbed } = require('discord.js'); \
+const { SlashCommandBuilder } = require(`@discordjs/builders`); \
+const { MessageEmbed } = require(`discord.js`); \
 \
 module.exports = { \
   data: new SlashCommandBuilder() \
-    .setName('server') \
-    .setDescription('Display info about this server!'), \
+    .setName(`server`) \
+    .setDescription(`Display info about this server!`), \
   async execute(interaction) { \
     const serverInfo = new MessageEmbed() \
-      .setColor('BLACK') \
-      .setTitle('**Server Info**') \
+      .setColor(`BLACK`) \
+      .setTitle(`**Server Info**`) \
       .addFields( \
-        { name: 'Server name:', value: `${interaction.guild.name}`, inline: true }, \
-        { name: 'Total members:', value: `${interaction.guild.memberCount}`, inline: true }, \
+        { name: `Server name:`, value: `${interaction.guild.name}`, inline: true }, \
+        { name: `Total members:`, value: `${interaction.guild.memberCount}`, inline: true }, \
       ) \
       .setThumbnail(interaction.guild.iconURL()) \
       .setFooter(`Bot Creator: BatemaDevelopment#0019 | BatemaDevelopment | Lukas Batema`) \
@@ -174,4 +174,4 @@ EXPOSE 8080
 RUN node deploy-commands.js
 
 # Run `node index` to start up the Discord Bot
-CMD [ "node", "index", "deploy-commands.js" ]
+CMD [ "node", "index" ]
