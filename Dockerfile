@@ -89,9 +89,9 @@ rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
 
 RUN sudo -S echo ' \
 { \
-  "clientId": "969959277081010187", \
-  "guildId": "794708278390161448", \
-  "token": "OTY5OTU5Mjc3MDgxMDEwMTg3.Ym0--A.KEUGUfOwNH_TDv07VQOiD0oqkV0" \
+  "clientId": "<INSERT_CLIENT_ID>", \
+  "guildId": "<INSERT_GUILD_ID>", \
+  "token": "<INSERT_BOT_TOKEN>" \
 } \
 ' >/home/node/Docker-Discord-Bot/config.json
 
