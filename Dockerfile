@@ -109,7 +109,7 @@ module.exports = { \
   name: `ready`, \
   once: true, \
   execute(interaction) { \
-    console.log(`Ready! Logged in as ${client.user.tag}`); \
+    console.log(`Ready! Logged in as ${interaction.user.tag}`); \
   }, \
 }; \
 ' >/home/node/Docker-Discord-Bot/events/ready.js
