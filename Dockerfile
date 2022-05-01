@@ -31,7 +31,7 @@ const { Routes } = require(`discord-api-types/v9`); \
 \
 const config = require(`./config.js`).config; \
 const { clientId, guildId, token } = JSON.parse(JSON.stringify(config)); \
-\ 
+\
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); \
 \
 const eventFiles = fs.readdirSync(`./events`).filter(file => file.endsWith(`.js`)); \
@@ -144,7 +144,7 @@ const { MessageEmbed } = require(`discord.js`); \
 \
 module.exports = { \
   data: new SlashCommandBuilder() \
-    .setName(`server`) \
+    .setName(`server-info`) \
     .setDescription(`Display info about this server!`), \
   async execute(interaction) { \
     const serverInfo = new MessageEmbed() \
@@ -161,7 +161,7 @@ module.exports = { \
     interaction.reply({ embeds: [serverInfo] }); \
   }, \
 }; \
-' >/home/node/Docker-Discord-Bot/commands/server.js
+' >/home/node/Docker-Discord-Bot/commands/server-info.js
 
 # Copy ownership to user and group `node`
 COPY --chown=node:node . .
