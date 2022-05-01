@@ -26,7 +26,7 @@ RUN sudo -S echo ' \
 const fs = require(`fs`); \
 const { Client, Collection, Intents } = require(`discord.js`); \
 const jsConfig = require(`./config.js`).config; \
-const config = JSON.parse(JSON.stringify(jsConfig)); \
+const { token } = JSON.parse(JSON.stringify(jsConfig)); \
 \ 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); \
 \
@@ -72,7 +72,7 @@ const fs = require(`fs`); \
 const { REST } = require(`@discordjs/rest`); \
 const { Routes } = require(`discord-api-types/v9`); \
 const jsConfig = require(`./config.js`).config; \
-const config = JSON.parse(JSON.stringify(jsConfig)); \
+const { guildId, clientId, token } = JSON.parse(JSON.stringify(jsConfig)); \
 \
 const commands = []; \
 const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`)); \
