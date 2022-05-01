@@ -45,4 +45,4 @@ Copy the Bot ID by right clicking on it's profile and clicking `Copy ID`, do so 
 <br>
 Paste them into the `<INSERT_GUILD_ID>` and `<INSERT_CLIENT_ID>` spots respectively.
 <br>
-Now you can use my referral link (https://railway.app?referralCode=BatemaDevelopment) to sign up for the best Cloud Hosting Service, so you can deploy your Discord Bot 24/7 (until you run out of credits). CONGRATS! You just deployed your Discord Bot! I hope you enjoy!
+Now you can use my referral link (https://railway.app?referralCode=BatemaDevelopment) to sign up for the best Cloud Hosting Service, so you can deploy your Discord Bot 24/7 (until you run out of your $5.00 (USD) credits for the month). CONGRATS! You just deployed your Discord Bot! I hope you enjoy!

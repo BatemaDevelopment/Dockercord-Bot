@@ -11,12 +11,12 @@ RUN addgroup -S node && adduser -S node -G node
 # and change ownership recursivly to the `node` user and group
 RUN mkdir -p /home/node/Docker-Discord-Bot/node_modules && chown -R node:node /home/node/Docker-Discord-Bot
 
+# Make the required directories for the bot
+RUN mkdir -p /home/node/Docker-Discord-Bot/events && chown -R node:node /home/node/Docker-Discord-Bot/events
+RUN mkdir -p /home/node/Docker-Discord-Bot/commands && chown -R node:node /home/node/Docker-Discord-Bot/commands
+
 # Set the working directory to `/home/node/Docker-Discord-Bot`
 WORKDIR /home/node/Docker-Discord-Bot
-
-# Make the required directories for the bot
-RUN mkdir -p /home/node/Docker-Discord-Bot/events && chown -R  node:node /home/node/Docker-Discord-Bot/events
-RUN mkdir -p /home/node/Docker-Discord-Bot/commands && chown -R  node:node /home/node/Docker-Discord-Bot/commands
 
 # Install required NPM Packages
 RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-types chalk pg express && npm init -y
@@ -24,9 +24,14 @@ RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-type
 # Add JS and other files below to make the bot run
 RUN sudo -S echo ' \
 const fs = require(`fs`); \
+\
 const { Client, Collection, Intents } = require(`discord.js`); \
-const { token } = require(`./config.json`); \
-\ 
+const { REST } = require(`@discordjs/rest`); \
+const { Routes } = require(`discord-api-types/v9`); \
+\
+const config = require(`./config.js`).config; \
+const { clientId, guildId, token } = JSON.parse(JSON.stringify(config)); \
+\
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); \
 \
 const eventFiles = fs.readdirSync(`./events`).filter(file => file.endsWith(`.js`)); \
@@ -63,17 +68,7 @@ client.on(`interactionCreate`, async interaction => { \
   } \
 }); \
 \
-client.login(token); \
-' >/home/node/Docker-Discord-Bot/index.js
-
-RUN sudo -S echo ' \
-const fs = require(`fs`); \
-const { REST } = require(`@discordjs/rest`); \
-const { Routes } = require(`discord-api-types/v9`); \
-const { clientId, guildId, token } = require(`./config.json`); \
-\
 const commands = []; \
-const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`)); \
 \
 for (const file of commandFiles) { \
   const command = require(`./commands/${file}`); \
@@ -85,15 +80,19 @@ const rest = new REST({ version: `9` }).setToken(token); \
 rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands }) \
 	.then(() => console.log(`Successfully registered application commands.`)) \
 	.catch(console.error); \
-' >/home/node/Docker-Discord-Bot/deploy-commands.js
+\
+client.login(token); \
+' >/home/node/Docker-Discord-Bot/index.js
 
 RUN sudo -S echo ' \
-{ \
-  "clientId": "<INSERT_CLIENT_ID>", \
-  "guildId": "<INSERT_GUILD_ID>", \
-  "token": "<INSERT_BOT_TOKEN>" \
-} \
-' >/home/node/Docker-Discord-Bot/config.json
+module.exports = { \
+  config: { \
+    clientId: process.env.CLIENT_ID, \
+    guildId: process.env.GUILD_ID, \
+    token: process.env.DISCORD_TOKEN \
+  } \
+}; \
+' >/home/node/Docker-Discord-Bot/config.js
 
 RUN sudo -S echo ' \
 module.exports = { \
@@ -123,7 +122,7 @@ module.exports = { \
     .setName(`user`) \
     .setDescription(`Display info about yourself!`), \
   async execute(interaction) { \
-    const serverInfo = new MessageEmbed() \
+    const userInfo = new MessageEmbed() \
       .setColor(`BLACK`) \
       .setTitle(`**User Info**`) \
       .addFields( \
@@ -134,7 +133,7 @@ module.exports = { \
       .setFooter(`Bot Creator: BatemaDevelopment#0019 | BatemaDevelopment | Lukas Batema`) \
       .setTimestamp(); \
 \
-    interaction.reply({ embeds: [serverInfo] }); \
+    interaction.reply({ embeds: [userInfo] }); \
   }, \
 }; \
 ' >/home/node/Docker-Discord-Bot/commands/user-info.js
@@ -145,7 +144,7 @@ const { MessageEmbed } = require(`discord.js`); \
 \
 module.exports = { \
   data: new SlashCommandBuilder() \
-    .setName(`server`) \
+    .setName(`server-info`) \
     .setDescription(`Display info about this server!`), \
   async execute(interaction) { \
     const serverInfo = new MessageEmbed() \
@@ -162,16 +161,11 @@ module.exports = { \
     interaction.reply({ embeds: [serverInfo] }); \
   }, \
 }; \
-' >/home/node/Docker-Discord-Bot/commands/server.js
+' >/home/node/Docker-Discord-Bot/commands/server-info.js
 
 # Copy ownership to user and group `node`
 COPY --chown=node:node . .
 
-# Expose the port of `8080` for some reason...
-EXPOSE 8080
-
 # Run `node index` to start up the Discord Bot
 # then deploy commands
-RUN node deploy-commands.js
-
 CMD [ "node", "index.js" ]
