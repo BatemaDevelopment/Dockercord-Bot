@@ -91,9 +91,11 @@ rest.put(Routes.applicationGuildCommands(config.clientId, config.guildId), { bod
 
 RUN sudo -S echo ' \
 module.exports = { \
-  clientId: process.env.CLIENT_ID, \
-  guildId: process.env.GUILD_ID, \
-  token: process.env.DISCORD_TOKEN \
+  config: { \
+    clientId: process.env.CLIENT_ID, \
+    guildId: process.env.GUILD_ID, \
+    token: process.env.DISCORD_TOKEN \
+  } \
 }; \
 ' >/home/node/Docker-Discord-Bot/config.js
 
