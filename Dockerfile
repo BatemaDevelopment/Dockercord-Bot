@@ -64,7 +64,7 @@ client.on(`interactionCreate`, async interaction => { \
   } \
 }); \
 \
-client.login(config.token); \
+client.login(token); \
 ' >/home/node/Docker-Discord-Bot/index.js
 
 RUN sudo -S echo ' \
@@ -82,9 +82,9 @@ for (const file of commandFiles) { \
   commands.push(command.data.toJSON()); \
 } \
 \
-const rest = new REST({ version: `9` }).setToken(config.token); \
+const rest = new REST({ version: `9` }).setToken(token); \
 \
-rest.put(Routes.applicationGuildCommands(config.clientId, config.guildId), { body: commands }) \
+rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands }) \
 	.then(() => console.log(`Successfully registered application commands.`)) \
 	.catch(console.error); \
 ' >/home/node/Docker-Discord-Bot/deploy-commands.js
