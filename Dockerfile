@@ -176,4 +176,4 @@ COPY --chown=node:node . .
 
 # Run `node index` to start up the Discord Bot
 # then deploy commands
-CMD [ "node", "index.js" && "node", "deploy-commands.js" ]
+CMD node index.js && node deploy-commands.js
