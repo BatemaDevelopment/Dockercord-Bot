@@ -25,8 +25,8 @@ RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-type
 RUN sudo -S echo ' \
 const fs = require(`fs`); \
 const { Client, Collection, Intents } = require(`discord.js`); \
-const jsConfig = require(`./config.js`).config; \
-const { token } = JSON.parse(JSON.stringify(jsConfig)); \
+const config = require(`./config.js`).config; \
+const { token } = JSON.parse(JSON.stringify(config)); \
 \ 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); \
 \
@@ -71,8 +71,8 @@ RUN sudo -S echo ' \
 const fs = require(`fs`); \
 const { REST } = require(`@discordjs/rest`); \
 const { Routes } = require(`discord-api-types/v9`); \
-const jsConfig = require(`./config.js`).config; \
-const { guildId, clientId, token } = JSON.parse(JSON.stringify(jsConfig)); \
+const config = require(`./config.js`).config; \
+const { clientId, guildId, token } = JSON.parse(JSON.stringify(config)); \
 \
 const commands = []; \
 const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`)); \
