@@ -160,7 +160,7 @@ module.exports = { \
     interaction.reply({ embeds: [serverInfo] }); \
   }, \
 }; \
-' >/home/node/Docker-Discord-Bot/commands/server.js
+' >/home/node/Docker-Discord-Bot/commands/server-info.js
 
 # Copy ownership to user and group `node`
 COPY --chown=node:node . .
