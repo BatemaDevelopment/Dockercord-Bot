@@ -11,12 +11,12 @@ RUN addgroup -S node && adduser -S node -G node
 # and change ownership recursivly to the `node` user and group
 RUN mkdir -p /home/node/Docker-Discord-Bot/node_modules && chown -R node:node /home/node/Docker-Discord-Bot
 
+# Make the required directories for the bot
+RUN mkdir -p /home/node/Docker-Discord-Bot/events && chown -R node:node /home/node/Docker-Discord-Bot/events
+RUN mkdir -p /home/node/Docker-Discord-Bot/commands && chown -R node:node /home/node/Docker-Discord-Bot/commands
+
 # Set the working directory to `/home/node/Docker-Discord-Bot`
 WORKDIR /home/node/Docker-Discord-Bot
-
-# Make the required directories for the bot
-RUN mkdir -p /home/node/Docker-Discord-Bot/events && chown -R  node:node /home/node/Docker-Discord-Bot/events
-RUN mkdir -p /home/node/Docker-Discord-Bot/commands && chown -R  node:node /home/node/Docker-Discord-Bot/commands
 
 # Install required NPM Packages
 RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-types chalk pg express && npm init -y
