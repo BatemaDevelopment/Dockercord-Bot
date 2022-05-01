@@ -174,8 +174,6 @@ COPY --chown=node:node . .
 # Expose the port of `8080` for some reason...
 EXPOSE 8080
 
-RUN node deploy-commands.js
-
 # Run `node index` to start up the Discord Bot
 # then deploy commands
 
