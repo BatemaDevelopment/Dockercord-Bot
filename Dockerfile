@@ -52,12 +52,12 @@ for (const file of commandFiles) { \
 client.on(`interactionCreate`, async interaction => { \
   if (!interaction.isCommand()) return; \
 \
-  const command = client.commands.get(interaction.commandName); \
+  const commandInteraction = client.commands.get(interaction.commandName); \
 \
-  if (!command) return; \
+  if (!commandInteraction) return; \
 \
   try { \
-    await command.execute(interaction); \
+    await commandInteraction.execute(interaction); \
   } catch (error) { \
     console.error(error); \
     return interaction.reply({ content: `There was an error while executing this command`, ephemeral: true }); \
@@ -71,8 +71,8 @@ const { Routes } = require(`discord-api-types/v9`); \
 \
 const commands = []; \
 \
-for (const file of commandFiles) { \
-  const commandDeploy = require(`./commands/${file}`); \
+for (const fileDeploy of commandFiles) { \
+  const commandDeploy = require(`./commands/${fileDeploy}`); \
   commands.push(commandDeploy.data.toJSON()); \
 } \
 \
