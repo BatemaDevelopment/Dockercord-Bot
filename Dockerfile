@@ -173,5 +173,5 @@ COPY --chown=node:node . .
 
 # Run `node index` to start up the Discord Bot
 # then deploy commands
-RUN node deploy-commands.js
-CMD node index.js
+ENTRYPOINT [ "node" ]
+CMD [ "index.js", "deploy-commands.js" ]
