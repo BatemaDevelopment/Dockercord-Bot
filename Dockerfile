@@ -24,7 +24,11 @@ RUN npm i --save discord.js @discordjs/builders @discordjs/rest discord-api-type
 # Add JS and other files below to make the bot run
 RUN sudo -S echo ' \
 const fs = require(`fs`); \
+\
 const { Client, Collection, Intents } = require(`discord.js`); \
+const { REST } = require(`@discordjs/rest`); \
+const { Routes } = require(`discord-api-types/v9`); \
+\
 const config = require(`./config.js`).config; \
 const { clientId, guildId, token } = JSON.parse(JSON.stringify(config)); \
 \ 
@@ -52,28 +56,23 @@ for (const file of commandFiles) { \
 client.on(`interactionCreate`, async interaction => { \
   if (!interaction.isCommand()) return; \
 \
-  const commandInteraction = client.commands.get(interaction.commandName); \
+  const command = client.commands.get(interaction.commandName); \
 \
-  if (!commandInteraction) return; \
+  if (!command) return; \
 \
   try { \
-    await commandInteraction.execute(interaction); \
+    await command.execute(interaction); \
   } catch (error) { \
     console.error(error); \
     return interaction.reply({ content: `There was an error while executing this command`, ephemeral: true }); \
   } \
 }); \
 \
-client.login(token); \
-\
-const { REST } = require(`@discordjs/rest`); \
-const { Routes } = require(`discord-api-types/v9`); \
-\
 const commands = []; \
 \
-for (const fileDeploy of commandFiles) { \
-  const commandDeploy = require(`./commands/${fileDeploy}`); \
-  commands.push(commandDeploy.data.toJSON()); \
+for (const file of commandFiles) { \
+  const command = require(`./commands/${file}`); \
+  commands.push(command.data.toJSON()); \
 } \
 \
 const rest = new REST({ version: `9` }).setToken(token); \
@@ -81,6 +80,8 @@ const rest = new REST({ version: `9` }).setToken(token); \
 rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands }) \
 	.then(() => console.log(`Successfully registered application commands.`)) \
 	.catch(console.error); \
+\
+client.login(token); \
 ' >/home/node/Docker-Discord-Bot/index.js
 
 RUN sudo -S echo ' \
@@ -160,7 +161,7 @@ module.exports = { \
     interaction.reply({ embeds: [serverInfo] }); \
   }, \
 }; \
-' >/home/node/Docker-Discord-Bot/commands/server-info.js
+' >/home/node/Docker-Discord-Bot/commands/server.js
 
 # Copy ownership to user and group `node`
 COPY --chown=node:node . .
