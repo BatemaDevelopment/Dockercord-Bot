@@ -72,8 +72,8 @@ const { Routes } = require(`discord-api-types/v9`); \
 const commands = []; \
 \
 for (const file of commandFiles) { \
-  const command = require(`./commands/${file}`); \
-  command.push(command.data.toJSON()); \
+  const commandDeploy = require(`./commands/${file}`); \
+  commands.push(commandDeploy.data.toJSON()); \
 } \
 \
 const rest = new REST({ version: `9` }).setToken(token); \
