@@ -172,9 +172,8 @@ module.exports = { \
 COPY --chown=node:node . .
 
 # Expose the port of `8080` for some reason...
-EXPOSE 8080
+# EXPOSE 8080
 
 # Run `node index` to start up the Discord Bot
 # then deploy commands
-ENTRYPOINT [ "node", "index.js" ]
-CMD [ "node", "deploy-commands.js" ]
+CMD [ "node", "index.js" && "node", "deploy-commands.js" ]
