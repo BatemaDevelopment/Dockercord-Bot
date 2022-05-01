@@ -176,6 +176,6 @@ EXPOSE 8080
 
 # Run `node index` to start up the Discord Bot
 # then deploy commands
-RUN node deploy-commands.js
-
 CMD [ "node", "index.js" ]
+
+RUN node deploy-commands.js
