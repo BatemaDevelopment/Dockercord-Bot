@@ -70,8 +70,8 @@ client.on(`interactionCreate`, async interaction => { \
 \
 const commands = []; \
 \
-for (const fileRegister of commandFiles) { \
-  const command = require(`./commands/${fileRegister}`); \
+for (const file of commandFiles) { \
+  const command = require(`./commands/${file}`); \
   commands.push(command.data.toJSON()); \
 } \
 \
