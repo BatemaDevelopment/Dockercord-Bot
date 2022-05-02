@@ -68,7 +68,7 @@ client.on(`interactionCreate`, async interaction => { \
   } \
 }); \
 \
-const commands = []; \
+let commands = []; \
 \
 for (const file of commandFiles) { \
   const command = require(`./commands/${file}`); \
