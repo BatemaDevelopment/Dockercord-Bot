@@ -6,7 +6,8 @@ then copy your server, which is also known as a guild ID)
 
 Other than that, this Dockerfile is usable OOTB (out of the box).
 
-- Docker Hub: https://hub.docker.com/repository/docker/lukasbatema/docker-discord-bot
+- Docker Hub: https://hub.docker.com/r/lukasbatema/dockercord-bot
+- GHCR (GitHub Container Registry): https://github.com/users/Lukas-Batema/packages/container/package/dockercord-bot
 
 # How to Create a Discord Bot, Add it To Your Server, and Get it Running
 
