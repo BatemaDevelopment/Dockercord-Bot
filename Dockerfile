@@ -167,4 +167,4 @@ module.exports = { \
 COPY --chown=node:node . .
 
 # Run `node index` to start up the Discord Bot
-CMD [ "node", "index.js" ]
+CMD [ "node", "--trace-warnings", "index.js" ]
