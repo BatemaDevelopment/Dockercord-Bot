@@ -144,7 +144,7 @@ const { MessageEmbed } = require(`discord.js`); \
 \
 module.exports = { \
   data: new SlashCommandBuilder() \
-    .setName(`server-info`) \
+    .setName(`server`) \
     .setDescription(`Display info about this server!`), \
   async execute(interaction) { \
     const serverInfo = new MessageEmbed() \
