@@ -167,7 +167,7 @@ module.exports = { \
 COPY --chown=node:node . .
 
 # Debugging
-RUN node -v
+# RUN node -v
 RUN npm list
 
 # Run `node index` to start up the Discord Bot
