@@ -168,7 +168,7 @@ COPY --chown=node:node . .
 
 # Debugging
 # RUN node -v
-RUN npm list
+# RUN npm list
 
 # Run `node index` to start up the Discord Bot
 CMD [ "node", "--trace-warnings", "--trace-deprecation", "index.js" ]
