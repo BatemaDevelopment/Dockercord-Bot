@@ -54,15 +54,9 @@ Now you can use [Railway](https://railway.app?referralCode=BatemaDevelopment) to
 
 # WORKAROUND FOR COMMANDS NOT DISPLAYING
 1. Go to `Server Settings`
-<br>
 2. Go to `Integrations`
-<br>
 3. Select the Bot you used for this Dockerfile
-<br>
 4. For every slash command:
-<br>
- a. Disallow permissions for `@everyone`
-<br>
- b. Re-allow permissions for `@everyone`
-<br>
+- Disallow permissions for `@everyone`
+- Re-allow permissions for `@everyone`
 5. You should be good!
