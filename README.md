@@ -50,6 +50,4 @@ Copy it, and paste it into the Enviornment Variable spot for your hosting provid
 
 <img src="tutorial_images/CopyServerID.png" />
 
-Paste them into the `<INSERT_GUILD_ID>` and `<INSERT_CLIENT_ID>` spots, respectively.
-
 Now you can use [Railway](https://railway.app?referralCode=BatemaDevelopment) to sign up for the best Cloud Hosting Service, so you can deploy your Discord Bot 24/7 (until you run out of your $5.00 (USD) credits for the month). CONGRATS! You just deployed your Discord Bot! I hope you enjoy it!
