@@ -61,8 +61,8 @@ Now you can use [Railway](https://railway.app?referralCode=BatemaDevelopment) to
 <br>
 4. For every slash command:
 <br>
-a. Disallow permissions for `@everyone`
+ a. Disallow permissions for `@everyone`
 <br>
-b. Re-allow permissions for `@everyone`
+ b. Re-allow permissions for `@everyone`
 <br>
 5. You should be good!
