@@ -57,6 +57,8 @@ Now you can use [Railway](https://railway.app?referralCode=BatemaDevelopment) to
 2. Go to `Integrations`
 3. Select the Bot you used for this Dockerfile
 4. For every slash command:
-  a. Disallow permissions for `@everyone`
-  b. Re-allow permissions for `@everyone`
+<br>
+a. Disallow permissions for `@everyone`
+<br>
+b. Re-allow permissions for `@everyone`
 5. You should be good!
