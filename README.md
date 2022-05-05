@@ -52,7 +52,7 @@ Copy it, and paste it into the Enviornment Variable spot for your hosting provid
 
 Now you can use [Railway](https://railway.app?referralCode=BatemaDevelopment) to sign up for the best Cloud Hosting Service, so you can deploy your Discord Bot 24/7 (until you run out of your $5.00 (USD) credits for the month). CONGRATS! You just deployed your Discord Bot! I hope you enjoy it!
 
-# WORKAROUND FOR COMMANDS NOT DISPLAYING
+# WORK AROUND FOR COMMANDS NOT DISPLAYING
 1. Go to `Server Settings`
 2. Go to `Integrations`
 3. Select the Bot you used for this Dockerfile
